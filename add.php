@@ -12,23 +12,24 @@ session_start();
     <body>
         <div class="container">
             <h1>Adding Profile for UMSI</h1>
-            <form method="post" onsubmit="return doValidate();" action="add.php" >
+            <form method="post" action="add.php" >
+                <p id="error" style="color: red;"></p>
                 <p>First Name:
-                    <input type="text" name="first_name" size="60" required/>
+                    <input type="text" name="first_name" id="fname" size="60"/>
                 </p>
                 <p>Last Name:
-                    <input type="text" name="last_name" size="60" required/>
+                    <input type="text" name="last_name" id="lname" size="60"/>
                 </p>
                 <p>Email:
-                    <input type="text" name="email" id="email" size="30" required/>
+                    <input type="text" name="email" id="email" size="30"/>
                 </p>
                 <p>Headline:<br/>
-                    <input type="text" name="headline" size="80"/>
+                    <input type="text" id="hline" name="headline" size="80"/>
                 </p>
                 <p>Summary:<br/>
-                    <textarea name="summary" rows="8" cols="80"></textarea>
+                    <textarea name="summary" id="sum" rows="8" cols="80"></textarea>
                 <p>
-                    <input type="submit" value="Add" name="submit">
+                    <input type="submit" value="Add" onclick="return doValidate();" name="submit">
                     <input type="submit" name="cancel" value="Cancel">
                 </p>
             </form>
@@ -37,9 +38,18 @@ session_start();
             function doValidate() {
                 console.log('Validating...');
                 try {
+                    var text = "All fields are required";
                     var addr = document.getElementById('email').value;
-                    // alert("hello" + addr);
+                    var fname = document.getElementById('fname').value;
+                    var lname = document.getElementById('lname').value;
+                    var hline = document.getElementById('hline').value;
+                    var sum = document.getElementById('sum').value;
+                    // alert("hello" + addr + " " + fname + lname +" "+hline +" " +sum);
                     console.log("Validating addr="+addr);
+                    if (fname == null || fname == "" || lname == null || lname == "" || hline == null || hline == "" || sum == null || sum == "") {
+                        document.getElementById('error').innerHTML = text;
+                        return false;
+                    }
                     if ( addr.indexOf('@') == -1 ) {
                         alert("Invalid email address");
                         return false;
