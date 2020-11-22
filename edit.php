@@ -20,7 +20,7 @@ $id = $_GET['profile_id'];
                 
             ?>
             <form method="POST" action="edit.php?profile_id=<?php echo $id; ?>">
-                <p id="error" style="color: red;"></p>
+                <p id="error" style="color: red; visibility: hidden;">All fields are required</p>
                 <p>First Name:
                     <input type="text" value= "<?php echo $row['first_name'];?>" name="first_name" size="60" id="fname"/>
                 </p>
@@ -48,7 +48,6 @@ $id = $_GET['profile_id'];
             function doValidate() {
                 console.log('Validating...');
                 try {
-                    var text = "All fields are required";
                     var addr = document.getElementById('email').value;
                     var fname = document.getElementById('fname').value;
                     var lname = document.getElementById('lname').value;
@@ -57,11 +56,11 @@ $id = $_GET['profile_id'];
                     // alert("hello" + addr);
                     console.log("Validating addr="+addr);
                     if (fname == null || fname == "" || lname == null || lname == "" || hline == null || hline == "" || sum == null || sum == "") {
-                        document.getElementById('error').innerHTML = text;
-                        return false;
+                        document.getElementById('error').style.visibility = "visible";
+                        return <?php header ("Location: edit.php?profile_id='$id'")?>;
                     }
                     if ( addr.indexOf('@') == -1 ) {
-                        alert("Invalid email address");
+                        alert("Email address must contain @");
                         return false;
                     }
                     return true;

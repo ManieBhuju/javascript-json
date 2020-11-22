@@ -13,7 +13,7 @@ session_start();
         <div class="container">
             <h1>Adding Profile for UMSI</h1>
             <form method="post" action="add.php" >
-                <p id="error" style="color: red;"></p>
+                <p id="error" style="color: red; visibility: hidden;">All fields are required</p>
                 <p>First Name:
                     <input type="text" name="first_name" id="fname" size="60"/>
                 </p>
@@ -38,7 +38,6 @@ session_start();
             function doValidate() {
                 console.log('Validating...');
                 try {
-                    var text = "All fields are required";
                     var addr = document.getElementById('email').value;
                     var fname = document.getElementById('fname').value;
                     var lname = document.getElementById('lname').value;
@@ -47,7 +46,7 @@ session_start();
                     // alert("hello" + addr + " " + fname + lname +" "+hline +" " +sum);
                     console.log("Validating addr="+addr);
                     if (fname == null || fname == "" || lname == null || lname == "" || hline == null || hline == "" || sum == null || sum == "") {
-                        document.getElementById('error').innerHTML = text;
+                        document.getElementById('error').style.visibility = "visible";
                         return false;
                     }
                     if ( addr.indexOf('@') == -1 ) {
